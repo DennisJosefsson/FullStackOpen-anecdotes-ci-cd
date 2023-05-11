@@ -59,13 +59,17 @@ app.put('/api/anecdotes/:id', (request, response, next) => {
     .catch((error) => next(error))
 })
 
-const unknownEndpoint = (request, response) => {
-  response.status(404).send({ error: 'Unknown endpoint' })
-}
+app.get('/health', (req, res) => {
+  res.send('ok')
+})
 
 if (process.env.NODE_ENV === 'test') {
   const testingRouter = require('./models/testing')
   app.use('/api/testing', testingRouter)
+}
+
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'Unknown endpoint' })
 }
 
 app.use(unknownEndpoint)
