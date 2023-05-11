@@ -56,6 +56,7 @@ jobs:
           WITH_V: true
   Health-check-redux-anecdotes:
     runs-on: ubuntu-latest
+    needs: [deployment]
     steps:
       - name: Check the deployed service URL
         uses: jtalk/url-health-check-action@v3
