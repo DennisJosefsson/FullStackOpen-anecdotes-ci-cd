@@ -31,7 +31,8 @@
     "eject": "react-scripts eject",
     "server": "nodemon index.js",
     "server:test": "cross-env NODE_ENV=test node index.js",
-    "test:e2e": "cypress open"
+    "test:e2e": "cypress open",
+    "start-prod-test": "cross-env NODE_ENV=test node index.js"
   },
   "eslintConfig": {
     "extends": [

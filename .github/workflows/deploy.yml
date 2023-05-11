@@ -6,7 +6,7 @@ on:
 
 jobs:
   deployment:
-    env: 
+    env:
       MONGODB_TEST_URI: ${{ secrets.MONGODB_TEST_URI }}
       TEST: TEST
     runs-on: ubuntu-latest
@@ -28,5 +28,5 @@ jobs:
         with:
           browser: chrome
           command: npx cypress run
-          start: node index.js
+          start: npm run start-prod-test
           wait-on: http://localhost:5000
