@@ -28,5 +28,5 @@ jobs:
         with:
           browser: chrome
           command: npx cypress run
-          start: npm run start-prod-test
+          start: npm run server:test
           wait-on: http://localhost:5000
