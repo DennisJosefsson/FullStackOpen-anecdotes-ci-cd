@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches: [master] 
+    types: [opened, synchronize]
 
 jobs:
   deployment:
@@ -30,3 +33,33 @@ jobs:
           command: npx cypress run
           start: npm run server:test
           wait-on: http://localhost:5000
+      - name: Deployment setup
+        uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Deployment execution
+        if: ${{ github.event_name == 'push' && !contains(join(toJSon(github.event.commits.*.message)), 'skip')}}
+        run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+  tag_release:
+    if: ${{ github.event_name == 'push' && !contains(join(toJSon(github.event.commits.*.message)), 'skip')}}
+    needs: [deployment]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@8c8163ef62cf9c4677c8e800f36270af27930f42
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+          WITH_V: true
+  Health-check-redux-anecdotes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check the deployed service URL
+        uses: jtalk/url-health-check-action@v3
+        with:
+          url: https://holy-sound-3376.fly.dev/health
+          max-attempts: 3
+          retry-delay: 5s
