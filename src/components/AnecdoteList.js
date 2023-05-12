@@ -50,7 +50,7 @@ const AnecdoteList = () => {
                   borderColor="black"
                   border="1px"
                   m="1"
-                  className="btn"
+                  data-cy="vote"
                   onClick={() => vote(anecdote.id)}
                 >
                   Vote

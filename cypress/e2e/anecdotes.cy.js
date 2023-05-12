@@ -3,11 +3,11 @@ describe('Anecdote site', () => {
     cy.visit('http://localhost:5000/')
     cy.contains('Anecdotes')
     cy.contains('Just a random anecdote')
-    cy.contains('create new')
+    cy.contains('Create new')
   })
   it('Click specific button to vote', () => {
     cy.visit('http://localhost:5000')
-    cy.contains('Another random anecdote').next().contains('vote').click()
+    cy.get('[data-cy="vote"]').eq(0).click()
     cy.contains('Anecdote has 6 votes')
   })
 })
