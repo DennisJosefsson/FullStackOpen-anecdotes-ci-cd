@@ -1,6 +1,14 @@
 import { useDispatch } from 'react-redux'
 import { addAnecdote } from '../reducers/anecdoteReducer'
 import { setNotification } from '../reducers/notificationReducer'
+import {
+  Input,
+  InputGroup,
+  InputRightElement,
+  Text,
+  Button,
+  Box,
+} from '@chakra-ui/react'
 
 const AnecdoteForm = () => {
   const dispatch = useDispatch()
@@ -14,15 +22,35 @@ const AnecdoteForm = () => {
   }
 
   return (
-    <div>
-      <h2>create new</h2>
+    <Box
+      m="1"
+      p="2"
+      w={756}
+      h="auto"
+      border="1px"
+      borderColor="gray.200"
+      borderRadius="lg"
+    >
+      <Text fontWeight="bold" m="1">
+        Create new
+      </Text>
       <form onSubmit={createAnecdote}>
-        <div>
-          <input name="anecdote" />
-        </div>
-        <button type="submit">create</button>
+        <InputGroup>
+          <Input name="anecdote" />
+          <InputRightElement width="4.5rem">
+            <Button
+              type="submit"
+              size="sm"
+              borderColor="black"
+              border="1px"
+              m="1"
+            >
+              Create
+            </Button>
+          </InputRightElement>
+        </InputGroup>
       </form>
-    </div>
+    </Box>
   )
 }
 

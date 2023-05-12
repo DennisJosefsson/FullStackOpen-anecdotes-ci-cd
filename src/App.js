@@ -6,6 +6,7 @@ import Notification from './components/Notification'
 
 import { initializeAnecdotes } from './reducers/anecdoteReducer'
 import { useDispatch } from 'react-redux'
+import { Box, Text } from '@chakra-ui/react'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -14,27 +15,34 @@ const App = () => {
   }, [dispatch])
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        backgroundColor: '#fcba03',
-        padding: 5,
-        borderRadius: 5,
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        alignContent: 'center',
-        width: 800,
-        minHeight: '100vh',
-      }}
+    <Box
+      backgroundColor="gray.50"
+      maxW="960px"
+      mx="auto"
+      display="flex"
+      alignItems="baseline"
+      justifyContent="center"
     >
-      <div style={{ backgroundColor: 'white', padding: 5 }}>
-        <h2>Anecdotes</h2>
+      <Box
+        m={[2, 3]}
+        p="10"
+        display="flex"
+        justifyContent="center"
+        flexDirection="column"
+      >
+        <Text
+          fontSize="2em"
+          textAlign={['left', 'center']}
+          fontWeight="extrabold"
+        >
+          Anecdotes
+        </Text>
         <Notification />
         <Filter />
         <AnecdoteList />
         <AnecdoteForm />
-      </div>
-    </div>
+      </Box>
+    </Box>
   )
 }
 
